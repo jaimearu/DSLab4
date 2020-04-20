@@ -10,7 +10,6 @@ import java.util.*;
 public class NameServer {
     Map<Integer, Integer> dataBase = new HashMap();
     Map<Integer, String> nodes = new HashMap<>();
-    boolean loggedIn = false;
     Integer highest = 0;
     public NameServer() throws IOException {
         readNodeMap();
@@ -34,7 +33,6 @@ public class NameServer {
             hash = hash/53;
         return hash;
     }
-
     private void addNodeToMap(String name, String ip) throws IOException {
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\NodeMap.txt", true)  //Set true for append mode
@@ -47,7 +45,6 @@ public class NameServer {
         readNodeMap();
         readDatabase();
     }
-
     private int requestFile(String filename){
         Integer hash = hashfunction(filename, false);
         if(dataBase.get(hash)!=null)
@@ -55,7 +52,6 @@ public class NameServer {
         else
             return -1;
     }
-
     private void removeNodeFromMap(Integer node) throws IOException {
         nodes.clear();
         File file = new File("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\NodeMap.txt");
@@ -91,7 +87,6 @@ public class NameServer {
         readNodeMap();
         readDatabase();
     }
-
     private void readDatabase() throws IOException {
         File file2 = new File("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\Database2.txt");
         BufferedReader br2 = new BufferedReader(new FileReader(file2));
@@ -105,7 +100,7 @@ public class NameServer {
             }
             if (temp == 0)
                 dataBase.put(tempfile,highest);
-            dataBase.put(tempfile,temp);
+            dataBase.put(tempfile,highest);
         }
         System.out.println(dataBase.toString());
     }
@@ -123,7 +118,6 @@ public class NameServer {
                 highest = hash;
         }
     }
-
     @GetMapping("/AddNode")
     public String output (@RequestParam(value = "name", defaultValue = "omo") String name,@RequestParam(value = "ip", defaultValue = "omo") String ip) throws IOException {
         if (!name.equals("omo") && !ip.equals("omo")) {
@@ -132,6 +126,15 @@ public class NameServer {
         }
         else
             return"adding new node failed";
+    }
+    @GetMapping("/RemoveNode")
+    public String output (@RequestParam(value = "ID", defaultValue = "omo") String ID) throws IOException {
+        if (!ID.equals("omo")) {
+            removeNodeFromMap(Integer.parseInt(ID));
+            return "node "+ID+" was succesfully Removed from the node map";
+        }
+        else
+            return"removing node failed";
     }
     @GetMapping("/LocateFile")
     public String output2 (@RequestParam(value = "fileName", defaultValue = "omo")String fileName,@RequestParam(value = "remove", defaultValue = "false") String remove) throws IOException {
