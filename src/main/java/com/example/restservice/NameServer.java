@@ -35,7 +35,7 @@ public class NameServer {
     }
     private void addNodeToMap(String name, String ip) throws IOException {
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\NodeMap.txt", true)  //Set true for append mode
+                new FileWriter("src\\main\\java\\com\\example\\restservice\\NodeMap.txt", true)  //Set true for append mode
         );
         writer.newLine();   //Add new line
         writer.write(name);
@@ -54,7 +54,7 @@ public class NameServer {
     }
     private void removeNodeFromMap(Integer node) throws IOException {
         nodes.clear();
-        File file = new File("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\NodeMap.txt");
+        File file = new File("src\\main\\java\\com\\example\\restservice\\NodeMap.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         nodes.clear();
@@ -72,7 +72,7 @@ public class NameServer {
         }
         int i = 0;
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\NodeMap.txt", false)  //Set true for append mode
+                new FileWriter("src\\main\\java\\com\\example\\restservice\\NodeMap.txt", false)  //Set true for append mode
         );
         while (i<nameToAdd.size()){
             if (i>=1)
@@ -88,7 +88,7 @@ public class NameServer {
         readDatabase();
     }
     private void readDatabase() throws IOException {
-        File file2 = new File("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\Database2.txt");
+        File file2 = new File("src\\main\\java\\com\\example\\restservice\\Database2.txt");
         BufferedReader br2 = new BufferedReader(new FileReader(file2));
         String st2;
         dataBase.clear();
@@ -105,7 +105,7 @@ public class NameServer {
         System.out.println(dataBase.toString());
     }
     private void readNodeMap() throws IOException {
-        File file = new File("C:\\Users\\Arla\\Documents\\Distributed\\NameServer\\src\\main\\java\\com\\example\\restservice\\NodeMap.txt");
+        File file = new File("src\\main\\java\\com\\example\\restservice\\/NodeMap.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
         nodes.clear();
